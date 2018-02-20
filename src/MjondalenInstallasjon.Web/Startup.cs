@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MjondalenInstallasjon.Data;
+using MjondalenInstallasjon.Identity;
 using React.AspNet;
 
 namespace MjondalenInstallasjon.Web
@@ -21,9 +23,14 @@ namespace MjondalenInstallasjon.Web
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddReact();
 
+            var connectionString = Configuration.GetConnectionString("MjondalenInstallasjon");
+            services.ConfigureData(connectionString);
+            services.ConfigureIdentity(connectionString);
+            
             return services.BuildServiceProvider();
         }
 
@@ -33,9 +40,12 @@ namespace MjondalenInstallasjon.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseReact(config =>
             {

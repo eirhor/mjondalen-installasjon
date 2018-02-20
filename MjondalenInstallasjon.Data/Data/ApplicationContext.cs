@@ -1,0 +1,11 @@
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace MjondalenInstallasjon.Data.Data
+{
+    public class ApplicationContext : DbContext
+    {
+        public ApplicationContext(DbContextOptions options) : base(options) {}
+        
+        
+    }
+}

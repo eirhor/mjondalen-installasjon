@@ -12,5 +12,10 @@
   <ItemGroup>
     <Folder Include="Frontend" />
     <Folder Include="Frontend" />
+    <Folder Include="Models\Components" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\MjondalenInstallasjon.Data\MjondalenInstallasjon.Data.csproj" />
+    <ProjectReference Include="..\..\MjondalenInstallasjon.Identity\MjondalenInstallasjon.Identity.csproj" />
   </ItemGroup>
 </Project>

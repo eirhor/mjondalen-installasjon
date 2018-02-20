@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MjondalenInstallasjon.Web", "src\MjondalenInstallasjon.Web\MjondalenInstallasjon.Web.csproj", "{42FC9345-06C8-451E-AC46-CC374044D89F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MjondalenInstallasjon.Identity", "MjondalenInstallasjon.Identity\MjondalenInstallasjon.Identity.csproj", "{5E026A33-E343-405D-A4E2-B620D5E0766D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MjondalenInstallasjon.Data", "MjondalenInstallasjon.Data\MjondalenInstallasjon.Data.csproj", "{0052B606-4F03-4357-A0E3-DE97E871584F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{42FC9345-06C8-451E-AC46-CC374044D89F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42FC9345-06C8-451E-AC46-CC374044D89F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42FC9345-06C8-451E-AC46-CC374044D89F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E026A33-E343-405D-A4E2-B620D5E0766D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E026A33-E343-405D-A4E2-B620D5E0766D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E026A33-E343-405D-A4E2-B620D5E0766D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E026A33-E343-405D-A4E2-B620D5E0766D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0052B606-4F03-4357-A0E3-DE97E871584F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0052B606-4F03-4357-A0E3-DE97E871584F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0052B606-4F03-4357-A0E3-DE97E871584F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0052B606-4F03-4357-A0E3-DE97E871584F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
