@@ -1,0 +1,33 @@
+{
+  "name": "mjondaleninstallasjon.web",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "npm run build:dev",
+    "build:dev": "webpack -d --watch",
+    "build:prod": "webpack -p",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/eirhor/mjondalen-installasjon"
+  },
+  "author": "Eirik Horvath",
+  "license": "MIT",
+  "dependencies": {
+    "clean-webpack-plugin": "^0.1.18",
+    "enzyme": "^3.3.0",
+    "expose-loader": "^0.7.4",
+    "jest": "^22.3.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "ts-jest": "^22.0.4",
+    "ts-loader": "^3.5.0",
+    "tslint": "^5.9.1",
+    "tslint-config-airbnb": "^5.6.0",
+    "tslint-loader": "^3.5.3",
+    "tslint-react": "^3.5.1",
+    "typescript": "^2.7.2",
+    "webpack": "^3.11.0"
+  }
+}
