@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-airbnb",
+    "tslint-react"
+  ],
+  "rules": {
+    "ter-indent": [true, 4, { "SwitchCase": 1 }],
+    "eofline": false,
+    "max-line-length": [false],
+    "interface-over-type-literal": false,
+    "align": false,
+    "variable-name": [true, "allow-pascal-case", "ban-keywords"],
+    "import-name": false,
+    "no-console": [true, "log", "warn"],
+    "jsx-no-multiline-js": false,
+    "no-trailing-whitespace": [false],
+    "no-shadowed-variable": false,
+    "no-empty": false,
+    "no-var-requires": false
+  }
+}
