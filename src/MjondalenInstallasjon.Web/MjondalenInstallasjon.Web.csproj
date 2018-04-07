@@ -8,18 +8,15 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.2" />
-    <PackageReference Include="Microsoft.NETCore.App" Version="2.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.1.5" />
     <PackageReference Include="React.AspNet" Version="3.3.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.2" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.1.5" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Frontend" />
-    <Folder Include="Frontend" />
-    <Folder Include="Models\Components" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MjondalenInstallasjon.Data\MjondalenInstallasjon.Data.csproj" />
