@@ -5,7 +5,7 @@ using MjondalenInstallasjon.Identity.Models;
 
 namespace MjondalenInstallasjon.Identity.Services
 {
-    public class IdentityService
+    public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
