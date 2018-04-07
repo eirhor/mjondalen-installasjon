@@ -40,9 +40,9 @@ namespace MjondalenInstallasjon.Identity.Services
             return await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
         }
 
-        public void SignOutUser()
+        public async Task SignOutUser()
         {
-            _signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync();
         }
 
         public async Task<IdentityResult> ChangeUserPassword(ChangePasswordViewModel model)
