@@ -15,7 +15,7 @@
     <Folder Include="Models\Components" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MjondalenInstallasjon.Data\MjondalenInstallasjon.Data.csproj" />
-    <ProjectReference Include="..\..\MjondalenInstallasjon.Identity\MjondalenInstallasjon.Identity.csproj" />
+    <ProjectReference Include="..\MjondalenInstallasjon.Data\MjondalenInstallasjon.Data.csproj" />
+    <ProjectReference Include="..\MjondalenInstallasjon.Identity\MjondalenInstallasjon.Identity.csproj" />
   </ItemGroup>
 </Project>
