@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MjondalenInstallasjon.Data;
 using MjondalenInstallasjon.Identity;
+using MjondalenInstallasjon.Identity.Services;
 using React.AspNet;
 
 namespace MjondalenInstallasjon.Web
@@ -25,6 +26,7 @@ namespace MjondalenInstallasjon.Web
             services.AddMvc();
             
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IIdentityService, IdentityService>();
             services.AddReact();
 
             var connectionString = Configuration.GetConnectionString("MjondalenInstallasjon");

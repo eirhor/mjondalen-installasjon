@@ -12,5 +12,11 @@ namespace MjondalenInstallasjon.Web.Controllers
         {
             return View("Index", new HomeView());
         }
+
+        [Authorize]
+        public IActionResult Test()
+        {
+            return View("Index", new HomeView());
+        }
     }
 }
