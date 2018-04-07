@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MjondalenInstallasjon.Data;
+using MjondalenInstallasjon.Data.Data;
 using MjondalenInstallasjon.Identity;
+using MjondalenInstallasjon.Identity.Data;
 using MjondalenInstallasjon.Identity.Services;
 using React.AspNet;
 
@@ -43,6 +45,12 @@ namespace MjondalenInstallasjon.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+            }
+
+            using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetService<ApplicationContext>().Database.EnsureCreated();
+                scope.ServiceProvider.GetService<ApplicationIdentityContext>().Database.EnsureCreated();
             }
 
             app.UseStaticFiles();
