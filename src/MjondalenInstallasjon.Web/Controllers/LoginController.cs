@@ -46,6 +46,11 @@ namespace MjondalenInstallasjon.Web.Controllers
                 var result = _identityService.SignInUser(model);
                 if (result.Result.Succeeded)
                 {
+                    if (string.IsNullOrEmpty(returnUrl))
+                    {
+                        RedirectToAction(nameof(AdminController.Index), "Admin");
+                    }
+
                     return Redirect(returnUrl);
                 }
 
@@ -122,6 +127,11 @@ namespace MjondalenInstallasjon.Web.Controllers
 
                         if (signInResult.Result.Succeeded)
                         {
+                            if (string.IsNullOrEmpty(returnUrl))
+                            {
+                                RedirectToAction(nameof(AdminController.Index), "Admin");
+                            }
+
                             return Redirect(returnUrl);
                         }
                         
