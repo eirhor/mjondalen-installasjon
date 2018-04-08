@@ -131,10 +131,8 @@ namespace MjondalenInstallasjon.Web.Controllers
                         ModelState.AddModelError(string.Empty, "Klarte ikke å logge inn brukeren etter opprettelse.");
                         return RedirectToAction(nameof(LoginController.Index), new {returnUrl});
                     }
-                    else
-                    {
-                        ModelState.AddErrors(roleResult.Result);
-                    }
+                    
+                    ModelState.AddErrors(roleResult.Result);
                 }
                 else
                 {
