@@ -1,9 +1,12 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MjondalenInstallasjon.Identity.Models;
 using MjondalenInstallasjon.Identity.Services;
+using MjondalenInstallasjon.Web.Extensions;
 
 namespace MjondalenInstallasjon.Web.Controllers
 {
@@ -29,7 +32,7 @@ namespace MjondalenInstallasjon.Web.Controllers
             var users = _identityService.GetUsersInRole(Constants.Roles.Administrator);
             if (!users.Result.Any())
             {
-                return RedirectToAction("CreateInitialUser", new { returnUrl });
+                return RedirectToAction(nameof(LoginController.CreateInitialUser), new { returnUrl });
             }
 
             ViewData[Constants.ViewData.ReturnUrl] = returnUrl;
@@ -51,17 +54,17 @@ namespace MjondalenInstallasjon.Web.Controllers
 
                 if (result.Result.IsLockedOut)
                 {
-                    return RedirectToAction("AccessDenied", new { errorMessage = "Brukerkontoen er låst." });
+                    return RedirectToAction(nameof(LoginController.AccessDenied), new { errorMessage = "Brukerkontoen er låst." });
                 }
 
                 if (result.Result.IsNotAllowed)
                 {
-                    return RedirectToAction("AccessDenied", new { errorMessage = "Brukerkontoen har ikke tilgang." });
+                    return RedirectToAction(nameof(LoginController.AccessDenied), new { errorMessage = "Brukerkontoen har ikke tilgang." });
                 }
 
                 if (result.Result.RequiresTwoFactor)
                 {
-                    return RedirectToAction("AccessDenied", new { errorMessage = "Konfigurasjonsfeil: Tofaktorautentisering." });
+                    return RedirectToAction(nameof(LoginController.AccessDenied), new { errorMessage = "Konfigurasjonsfeil: Tofaktorautentisering." });
                 }
                 
                 ModelState.AddModelError(string.Empty, "Ugyldig innlogging");
@@ -71,6 +74,14 @@ namespace MjondalenInstallasjon.Web.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Logout()
+        {
+            _identityService.SignOutUser();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
         [AllowAnonymous]
         [HttpGet]
         public IActionResult CreateInitialUser(string returnUrl = null)
@@ -78,7 +89,7 @@ namespace MjondalenInstallasjon.Web.Controllers
             var users = _identityService.GetUsersInRole(Constants.Roles.Administrator);
             if (users.Result.Any())
             {
-                return RedirectToActionPermanent("Index", new { returnUrl });
+                return RedirectToActionPermanent(nameof(LoginController.Index), new { returnUrl });
             }
             
             ViewData[Constants.ViewData.ReturnUrl] = returnUrl;
@@ -90,7 +101,46 @@ namespace MjondalenInstallasjon.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateInitialUser(RegisterViewModel model, string returnUrl = null)
         {
+            var users = _identityService.GetUsersInRole(Constants.Roles.Administrator);
+            if (users.Result.Any())
+            {
+                return RedirectToActionPermanent(nameof(LoginController.Index), new { returnUrl });
+            }
             
+            if (ModelState.IsValid)
+            {
+                var result = _identityService.CreateUser(model);
+
+                if (result.Result.Result.Succeeded)
+                {
+                    var roleResult = _identityService.AddUserToRole(result.Result.CreatedUser, Constants.Roles.Administrator);
+
+                    if (roleResult.Result.Succeeded)
+                    {
+                        var signInResult = _identityService.SignInUser(new SignInViewModel
+                        {
+                            Email = model.Email,
+                            Password = model.Password
+                        });
+
+                        if (signInResult.Result.Succeeded)
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        
+                        ModelState.AddModelError(string.Empty, "Klarte ikke å logge inn brukeren etter opprettelse.");
+                        return RedirectToAction(nameof(LoginController.Index), new {returnUrl});
+                    }
+                    else
+                    {
+                        ModelState.AddErrors(roleResult.Result);
+                    }
+                }
+                else
+                {
+                    ModelState.AddErrors(result.Result.Result);
+                }
+            }
             
             ViewData[Constants.ViewData.ReturnUrl] = returnUrl;
             return View(model);
@@ -100,7 +150,7 @@ namespace MjondalenInstallasjon.Web.Controllers
         [HttpGet]
         public IActionResult AccessDenied(string errorMessage = null)
         {
-            return View();
+            return View("AccessDenied", errorMessage);
         }
     }
 }

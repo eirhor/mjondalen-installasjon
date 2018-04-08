@@ -20,7 +20,7 @@ namespace MjondalenInstallasjon.Identity.Services
             _roleManager = roleManager;
         }
 
-        public async Task<IdentityResult> CreateUser(RegisterViewModel model)
+        public async Task<CreateUserResponse> CreateUser(RegisterViewModel model)
         {
             var user = new ApplicationUser
             {
@@ -29,7 +29,13 @@ namespace MjondalenInstallasjon.Identity.Services
                 EmailConfirmed = true
             };
 
-            return await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            return new CreateUserResponse
+            {
+                Result = result,
+                CreatedUser = user,
+            };
         }
 
         public async Task<IdentityResult> DeleteUser(string email)

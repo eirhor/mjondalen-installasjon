@@ -7,7 +7,7 @@ namespace MjondalenInstallasjon.Identity.Services
 {
     public interface IIdentityService
     {
-        Task<IdentityResult> CreateUser(RegisterViewModel model);
+        Task<CreateUserResponse> CreateUser(RegisterViewModel model);
         Task<IdentityResult> DeleteUser(string email);
         Task<SignInResult> SignInUser(SignInViewModel model);
         Task SignOutUser();
