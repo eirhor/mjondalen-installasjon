@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using MjondalenInstallasjon.Web.Areas.Web.ViewComponents
+<!DOCTYPE html>
 
 <html>
-@await Component.InvokeAsync("Head")
+@await Component.InvokeAsync(typeof(HeadViewComponent))
 <body>
-@await Component.InvokeAsync("Navigation")
+@await Component.InvokeAsync(typeof(NavigationViewComponent))
 @RenderBody()
 </body>
 </html>

@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using MjondalenInstallasjon.Web.Areas.Cms.ViewComponents
+<!DOCTYPE html>
 
 <html>
-@await Component.InvokeAsync("AdminHead")
+@await Component.InvokeAsync(typeof(HeadViewComponent))
 <body>
     CmsLayout
-    @await Component.InvokeAsync("AdminNavigation")
-    @RenderBody()
+@await Component.InvokeAsync(typeof(NavigationViewComponent))
+@RenderBody()
 </body>
 </html>
