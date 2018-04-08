@@ -29,7 +29,7 @@ namespace MjondalenInstallasjon.Web.Controllers
             var users = _identityService.GetUsersInRole(Constants.Roles.Administrator);
             if (!users.Result.Any())
             {
-                return RedirectToAction(nameof(CreateInitialUser), new { returnUrl });
+                return RedirectToAction(nameof(UsersController.CreateInitialUser), "Users", new { returnUrl });
             }
 
             ViewData[Constants.ViewData.ReturnUrl] = returnUrl;
@@ -48,7 +48,7 @@ namespace MjondalenInstallasjon.Web.Controllers
                 {
                     if (string.IsNullOrEmpty(returnUrl))
                     {
-                        RedirectToAction(nameof(AdminController.Index), "Admin");
+                        return RedirectToAction(nameof(AdminController.Index), "Admin");
                     }
 
                     return Redirect(returnUrl);
@@ -82,73 +82,6 @@ namespace MjondalenInstallasjon.Web.Controllers
         {
             _identityService.SignOutUser();
             return RedirectToAction(nameof(HomeController.Index), "Home");
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public IActionResult CreateInitialUser(string returnUrl = null)
-        {
-            var users = _identityService.GetUsersInRole(Constants.Roles.Administrator);
-            if (users.Result.Any())
-            {
-                return RedirectToActionPermanent(nameof(Index), new { returnUrl });
-            }
-            
-            ViewData[Constants.ViewData.ReturnUrl] = returnUrl;
-            return View();
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CreateInitialUser(RegisterViewModel model, string returnUrl = null)
-        {
-            var users = _identityService.GetUsersInRole(Constants.Roles.Administrator);
-            if (users.Result.Any())
-            {
-                return RedirectToActionPermanent(nameof(Index), new { returnUrl });
-            }
-            
-            if (ModelState.IsValid)
-            {
-                var result = _identityService.CreateUser(model);
-
-                if (result.Result.Result.Succeeded)
-                {
-                    var roleResult = _identityService.AddUserToRole(result.Result.CreatedUser, Constants.Roles.Administrator);
-
-                    if (roleResult.Result.Succeeded)
-                    {
-                        var signInResult = _identityService.SignInUser(new SignInViewModel
-                        {
-                            Email = model.Email,
-                            Password = model.Password
-                        });
-
-                        if (signInResult.Result.Succeeded)
-                        {
-                            if (string.IsNullOrEmpty(returnUrl))
-                            {
-                                RedirectToAction(nameof(AdminController.Index), "Admin");
-                            }
-
-                            return Redirect(returnUrl);
-                        }
-                        
-                        ModelState.AddModelError(string.Empty, "Klarte ikke å logge inn brukeren etter opprettelse.");
-                        return RedirectToAction(nameof(Index), new {returnUrl});
-                    }
-                    
-                    ModelState.AddErrors(roleResult.Result);
-                }
-                else
-                {
-                    ModelState.AddErrors(result.Result.Result);
-                }
-            }
-            
-            ViewData[Constants.ViewData.ReturnUrl] = returnUrl;
-            return View(model);
         }
 
         [AllowAnonymous]
