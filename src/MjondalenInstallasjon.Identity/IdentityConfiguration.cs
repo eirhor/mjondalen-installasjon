@@ -26,15 +26,16 @@ namespace MjondalenInstallasjon.Identity
                 options.Password.RequireLowercase = false;
                 options.Password.RequiredUniqueChars = 6;
                 options.User.RequireUniqueEmail = true;
+                options.Lockout.AllowedForNewUsers = false;
             });
 
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.HttpOnly = true;
                 options.Cookie.Expiration = TimeSpan.FromDays(150);
-                options.LoginPath = "/Admin/Login";
-                options.LogoutPath = "/Admin/Logout";
-                options.AccessDeniedPath = "/Admin/AccessDenied";
+                options.LoginPath = "/Login/Index";
+                options.LogoutPath = "/Login/Logout";
+                options.AccessDeniedPath = "/Login/AccessDenied";
                 options.SlidingExpiration = true;
             });
         }
