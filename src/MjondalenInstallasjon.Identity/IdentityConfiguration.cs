@@ -33,9 +33,9 @@ namespace MjondalenInstallasjon.Identity
             {
                 options.Cookie.HttpOnly = true;
                 options.Cookie.Expiration = TimeSpan.FromDays(150);
-                options.LoginPath = "/Login/Index";
-                options.LogoutPath = "/Login/Logout";
-                options.AccessDeniedPath = "/Login/AccessDenied";
+                options.LoginPath = "/cms/Login/Index";
+                options.LogoutPath = "/cms/Login/Logout";
+                options.AccessDeniedPath = "/cms/Login/AccessDenied";
                 options.SlidingExpiration = true;
             });
         }

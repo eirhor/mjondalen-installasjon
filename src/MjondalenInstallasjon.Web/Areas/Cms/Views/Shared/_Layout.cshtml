@@ -1,0 +1,10 @@
+﻿<!DOCTYPE html>
+
+<html>
+@await Component.InvokeAsync("AdminHead")
+<body>
+    CmsLayout
+    @await Component.InvokeAsync("AdminNavigation")
+    @RenderBody()
+</body>
+</html>

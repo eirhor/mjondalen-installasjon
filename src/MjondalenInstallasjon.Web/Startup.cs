@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MjondalenInstallasjon.Data;
@@ -25,6 +26,16 @@ namespace MjondalenInstallasjon.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.Configure<RazorViewEngineOptions>(o =>
+            {
+                o.AreaViewLocationFormats.Clear();
+                o.AreaViewLocationFormats.Add("/Areas/{2}/Views/{1}/{0}.cshtml");
+                o.AreaViewLocationFormats.Add("/Areas/{2}/Views/Shared/{0}.cshtml");
+                o.ViewLocationFormats.Clear();
+                o.ViewLocationFormats.Add("/Areas/Web/Views/{1}/{0}.cshtml");
+                o.ViewLocationFormats.Add("/Areas/Web/Views/Shared/{0}.cshtml");
+            });
+            
             services.AddMvc();
             
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -68,6 +79,9 @@ namespace MjondalenInstallasjon.Web
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "cmsRoute",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

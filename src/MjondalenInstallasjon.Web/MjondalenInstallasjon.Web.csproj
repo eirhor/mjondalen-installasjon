@@ -16,6 +16,8 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.1.5" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Shared" />
+    <Folder Include="Areas\Web" />
     <Folder Include="Frontend" />
   </ItemGroup>
   <ItemGroup>
